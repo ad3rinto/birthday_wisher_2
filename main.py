@@ -5,13 +5,13 @@
 # HINT: Make sure one of the entries matches today's date for testing purposes. 
 import datetime as dt
 import smtplib
+from key import PASSWORD
 
-import keyring.http
 import pandas as pd
 import random
 
 my_email = "mojojo.aderinto@gmail.com"
-my_password = key.PASSWORD
+my_password = PASSWORD
 
 day_of_week = dt.datetime.now()
 today = day_of_week.day
@@ -23,14 +23,17 @@ print(df)
 birthday_dictionary = df.to_dict("records")
 print(birthday_dictionary)
 
-
 for i in birthday_dictionary:
     if i["day"] == today and i["month"] == month:
         selector = random.randint(1, 3)
         with open(f"letter_templates/letter_{selector}.txt", "r") as letter:
             content = letter.read()
             real_content = content.replace("[NAME]", i["name"])
-
+            with smtplib.SMTP("smtp.gmail.com") as connection:
+                connection.starttls()
+                connection.login(my_email, my_password)
+                connection.sendmail(from_addr=my_email, to_addrs="agbako@myyahoo.com",
+                                    msg=f"subject:Happy Birthday\n\n{real_content}")
 
 # HINT 1: Only the month and day matter.
 # HINT 2: You could create a dictionary from birthdays.csv that looks like this:
