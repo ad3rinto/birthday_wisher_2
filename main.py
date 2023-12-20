@@ -1,6 +1,7 @@
 ##################### Hard Starting Project ######################
 
-# 1. Update the birthdays.csv with your friends & family's details. 
+# 1. Update the birthdays.csv with your friends & family's details.
+
 # HINT: Make sure one of the entries matches today's date for testing purposes. 
 
 # 2. Check if today matches a birthday in the birthdays.csv
